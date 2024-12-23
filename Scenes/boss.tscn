@@ -1,0 +1,185 @@
+[gd_scene load_steps=9 format=3 uid="uid://ceyg2f8ffoa3f"]
+
+[ext_resource type="Texture2D" uid="uid://daki462ckoaks" path="res://Assets/Enemies/character_square_red.png" id="1_2p1e0"]
+[ext_resource type="Script" path="res://Scenes/boss.gd" id="1_pcfmq"]
+[ext_resource type="Texture2D" uid="uid://dw8qx2cnl4b53" path="res://Assets/Enemies/character_handRed.png" id="2_1d1sc"]
+[ext_resource type="Texture2D" uid="uid://ochcjg3t4prm" path="res://Assets/Enemies/barrel_yellow.png" id="3_3l6b1"]
+
+[sub_resource type="Animation" id="Animation_2gik4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSquareRed/CharacterHandRed:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-15, 8.025)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSquareRed/CharacterHandRed/BarrelYellow:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSquareRed:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ol4bj"]
+resource_name = "lanzar"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSquareRed:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 0.9, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-1, 1), Vector2(-1, 1), Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSquareRed/CharacterHandRed:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.8, 1.3, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-9.03663, 8), Vector2(50, 8), Vector2(-12.531, -50), Vector2(40, -8.571), Vector2(45, 8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSquareRed/CharacterHandRed/BarrelYellow:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 1.3, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, false]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"launch_barrel"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_53i04"]
+resource_name = "reposo"
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSquareRed/CharacterHandRed:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-15, 8), Vector2(-7, 8), Vector2(-15, 8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSquareRed/CharacterHandRed/BarrelYellow:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qhrho"]
+_data = {
+"RESET": SubResource("Animation_2gik4"),
+"lanzar": SubResource("Animation_ol4bj"),
+"reposo": SubResource("Animation_53i04")
+}
+
+[node name="Boss" type="Node2D"]
+script = ExtResource("1_pcfmq")
+
+[node name="CharacterSquareRed" type="Sprite2D" parent="."]
+texture = ExtResource("1_2p1e0")
+
+[node name="CharacterHandRed" type="Sprite2D" parent="CharacterSquareRed"]
+position = Vector2(-15, 8.025)
+texture = ExtResource("2_1d1sc")
+
+[node name="BarrelYellow" type="Sprite2D" parent="CharacterSquareRed/CharacterHandRed"]
+visible = false
+position = Vector2(-10.9634, 1)
+texture = ExtResource("3_3l6b1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qhrho")
+}
+
+[node name="Barril" type="Sprite2D" parent="."]
+position = Vector2(-59, 5)
+texture = ExtResource("3_3l6b1")
+
+[node name="Barril2" type="Sprite2D" parent="."]
+position = Vector2(-98, 6)
+texture = ExtResource("3_3l6b1")
+
+[node name="Barril3" type="Sprite2D" parent="."]
+position = Vector2(-139, 6)
+texture = ExtResource("3_3l6b1")
+
+[node name="Barril4" type="Sprite2D" parent="."]
+position = Vector2(-80, -29)
+texture = ExtResource("3_3l6b1")
+
+[node name="Barril5" type="Sprite2D" parent="."]
+position = Vector2(-121, -29)
+texture = ExtResource("3_3l6b1")
+
+[node name="Barril6" type="Sprite2D" parent="."]
+position = Vector2(-99, -64)
+texture = ExtResource("3_3l6b1")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

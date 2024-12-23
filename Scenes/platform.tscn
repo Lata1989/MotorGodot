@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbe341vgi61vo"]
+
+[ext_resource type="Texture2D" uid="uid://d0fxnbhg1muev" path="res://Assets/Floor/ladder.png" id="1_xyl7s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bmkss"]
+size = Vector2(931, 44)
+
+[node name="platform" type="StaticBody2D"]
+
+[node name="Ladder" type="Sprite2D" parent="."]
+texture = ExtResource("1_xyl7s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_bmkss")
+one_way_collision = true

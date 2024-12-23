@@ -1,0 +1,159 @@
+[gd_scene load_steps=17 format=3 uid="uid://bj7664o151uwy"]
+
+[ext_resource type="PackedScene" uid="uid://bvjkgdubf2wh3" path="res://Scenes/puente.tscn" id="1_rcnir"]
+[ext_resource type="PackedScene" uid="uid://bbe341vgi61vo" path="res://Scenes/platform.tscn" id="2_35pdd"]
+[ext_resource type="Script" path="res://Scenes/CameraFollow.gd" id="2_34186"]
+[ext_resource type="PackedScene" uid="uid://b5ikikwi1qvkq" path="res://Scenes/top.tscn" id="3_8e6xg"]
+[ext_resource type="PackedScene" uid="uid://blxy80xurdjth" path="res://Scenes/personaje.tscn" id="4_sxtdc"]
+[ext_resource type="PackedScene" uid="uid://bw1lxdyw7bm5p" path="res://Scenes/barril.tscn" id="5_eggfx"]
+[ext_resource type="Texture2D" uid="uid://dxylxb1ys1v2j" path="res://Assets/Decoration/background_treeLarge.png" id="6_tjd80"]
+[ext_resource type="Texture2D" uid="uid://dvsc2vm55lnev" path="res://Assets/Decoration/background_tree.png" id="7_fggyl"]
+[ext_resource type="Texture2D" uid="uid://cd4qfkandxjhh" path="res://Assets/Decoration/background_cloudB.png" id="8_2nkna"]
+[ext_resource type="Texture2D" uid="uid://bxucwqdwwi1eq" path="res://Assets/Decoration/background_cloudA.png" id="9_iew3k"]
+[ext_resource type="PackedScene" uid="uid://ceyg2f8ffoa3f" path="res://Scenes/boss.tscn" id="11_easc5"]
+[ext_resource type="Texture2D" uid="uid://b01n6wvmhdncj" path="res://Assets/Decoration/flag.png" id="12_b7u0g"]
+[ext_resource type="PackedScene" uid="uid://dvqupb4w15x6m" path="res://Scenes/canvas_layer_ui.tscn" id="13_aj3ld"]
+[ext_resource type="Script" path="res://Scenes/canvas_layer_ui.gd" id="14_4irtu"]
+[ext_resource type="Script" path="res://Scenes/game_controller.gd" id="14_5jxo0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1cbv4"]
+size = Vector2(60.25, 61)
+
+[node name="Level1" type="Node2D"]
+position = Vector2(23, -17)
+
+[node name="Boss" parent="." instance=ExtResource("11_easc5")]
+position = Vector2(142, -343)
+
+[node name="Decoracion" type="Node" parent="."]
+
+[node name="BackgroundTreeLarge" type="Sprite2D" parent="Decoracion"]
+position = Vector2(99, 621)
+texture = ExtResource("6_tjd80")
+
+[node name="BackgroundTreeLarge2" type="Sprite2D" parent="Decoracion"]
+position = Vector2(376, 602)
+texture = ExtResource("6_tjd80")
+
+[node name="BackgroundTree" type="Sprite2D" parent="Decoracion"]
+position = Vector2(497, 580)
+texture = ExtResource("7_fggyl")
+
+[node name="BackgroundCloudA" type="Sprite2D" parent="Decoracion"]
+position = Vector2(1177, 30)
+texture = ExtResource("9_iew3k")
+
+[node name="BackgroundCloudA2" type="Sprite2D" parent="Decoracion"]
+position = Vector2(-14, -160)
+texture = ExtResource("9_iew3k")
+
+[node name="BackgroundCloudB" type="Sprite2D" parent="Decoracion"]
+position = Vector2(-46, 238)
+texture = ExtResource("8_2nkna")
+
+[node name="BackgroundCloudB2" type="Sprite2D" parent="Decoracion"]
+position = Vector2(1107, 361)
+texture = ExtResource("8_2nkna")
+
+[node name="BackgroundCloudB3" type="Sprite2D" parent="Decoracion"]
+position = Vector2(1259, -294)
+texture = ExtResource("8_2nkna")
+
+[node name="Suelos" type="Node" parent="."]
+
+[node name="puente" parent="Suelos" instance=ExtResource("1_rcnir")]
+position = Vector2(613, 700)
+rotation = -0.10472
+
+[node name="platform" parent="Suelos" instance=ExtResource("2_35pdd")]
+position = Vector2(430, 440)
+rotation = 0.10472
+
+[node name="platform2" parent="Suelos" instance=ExtResource("2_35pdd")]
+position = Vector2(680, 260)
+rotation = -0.10472
+
+[node name="platform3" parent="Suelos" instance=ExtResource("2_35pdd")]
+position = Vector2(320, 80)
+rotation = 0.10472
+
+[node name="platform4" parent="Suelos" instance=ExtResource("2_35pdd")]
+position = Vector2(680, -100)
+rotation = -0.10472
+
+[node name="top" parent="Suelos" instance=ExtResource("3_8e6xg")]
+position = Vector2(-142, -324)
+
+[node name="top2" parent="Suelos" instance=ExtResource("3_8e6xg")]
+position = Vector2(277, -313)
+rotation = 0.0523599
+
+[node name="top3" parent="Suelos" instance=ExtResource("3_8e6xg")]
+position = Vector2(693, -280)
+rotation = 0.10472
+
+[node name="Personaje" parent="." instance=ExtResource("4_sxtdc")]
+position = Vector2(30, 657)
+collision_layer = 2
+collision_mask = 5
+gravity = 600
+jump_speed = 400
+
+[node name="Camera2D" type="Camera2D" parent="Personaje" node_paths=PackedStringArray("object_to_follow")]
+limit_left = 0
+limit_top = -500
+limit_right = 1280
+limit_bottom = 800
+script = ExtResource("2_34186")
+object_to_follow = NodePath("..")
+
+[node name="Flag" type="Sprite2D" parent="."]
+position = Vector2(282, -335)
+texture = ExtResource("12_b7u0g")
+
+[node name="Area2D" type="Area2D" parent="Flag"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Flag/Area2D"]
+position = Vector2(0.875, -1.5)
+shape = SubResource("RectangleShape2D_1cbv4")
+
+[node name="Barriles" type="Node" parent="."]
+
+[node name="Barril" parent="Barriles" instance=ExtResource("5_eggfx")]
+position = Vector2(657, -341)
+collision_layer = 4
+collision_mask = 7
+
+[node name="Barril2" parent="Barriles" instance=ExtResource("5_eggfx")]
+position = Vector2(985, -211)
+
+[node name="Barril3" parent="Barriles" instance=ExtResource("5_eggfx")]
+position = Vector2(67, -13)
+
+[node name="Barril4" parent="Barriles" instance=ExtResource("5_eggfx")]
+position = Vector2(1080, 148)
+
+[node name="Barril5" parent="Barriles" instance=ExtResource("5_eggfx")]
+position = Vector2(38, 339)
+
+[node name="Barril6" parent="Barriles" instance=ExtResource("5_eggfx")]
+position = Vector2(1183, 494)
+
+[node name="CanvasLayer" parent="." instance=ExtResource("13_aj3ld")]
+script = ExtResource("14_4irtu")
+
+[node name="GameController" type="Node2D" parent="."]
+visible = false
+script = ExtResource("14_5jxo0")
+
+[node name="Timer" type="Timer" parent="GameController"]
+autostart = true
+
+[connection signal="player_hit" from="Personaje" to="GameController" method="_on_personaje_player_hit"]
+[connection signal="body_entered" from="Flag/Area2D" to="Personaje" method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Flag/Area2D" to="GameController" method="_on_area_2d_body_entered"]
+[connection signal="player_health_updated" from="GameController" to="CanvasLayer" method="_on_game_controller_player_health_updated"]
+[connection signal="time_updated" from="GameController" to="CanvasLayer" method="_on_game_controller_time_updated"]
+[connection signal="timeout" from="GameController/Timer" to="GameController" method="_on_timer_timeout"]
